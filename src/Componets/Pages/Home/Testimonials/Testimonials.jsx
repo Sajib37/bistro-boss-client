@@ -19,7 +19,7 @@ const Testimonials = () => {
 
     if (reviews) {
         return (
-            <section>
+            <section className="mb-8 md:mb-12">
                 <SectionTitle heading={'TESTIMONIALS'} subHeading={'What Our Clients Say'}></SectionTitle>
 
                 <div className="max-w-screen-xl mx-auto">

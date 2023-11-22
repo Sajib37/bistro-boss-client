@@ -23,7 +23,7 @@ const ChefRecommend = () => {
             <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3">
                 {
                     ofeeredItem &&
-                    ofeeredItem.map((item,idx)=><ItemCard key={idx} item={item}></ItemCard>)
+                    ofeeredItem.slice(0,3).map((item,idx)=><ItemCard key={idx} item={item}></ItemCard>)
                 }
             </div>
         </section>

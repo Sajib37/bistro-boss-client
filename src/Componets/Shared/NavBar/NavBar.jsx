@@ -5,7 +5,7 @@ import { BsCartFill } from "react-icons/bs";
 
 const NavBar = () => {
     return (
-        <div className='absolute top-0 z-20 w-full bg-black bg-opacity-60'>
+        <div className='fixed top-0 z-40 w-full bg-black bg-opacity-80'>
             <Navbar fluid rounded className=' bg-transparent max-w-screen-xl mx-auto text-white'>
                     <Navbar.Brand  href="#">
                         <img src={logo} className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
