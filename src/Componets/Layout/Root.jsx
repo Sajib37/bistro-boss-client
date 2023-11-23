@@ -1,14 +1,23 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import NavBar from '../Shared/Navbar/Navbar';
+import React, { useEffect } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
 import Footer from '../Shared/Footer/Footer'
+import NavBar from '../Shared/NavBar/NavBar';
 
 const Root = () => {
+    const pathname= useLocation()
+    useEffect(() => {
+        window.scrollTo(0,0)
+    }, [pathname])
+
+    const location = useLocation()
+    const noHeaderfooter = location.pathname.includes('signIn') || location.pathname.includes('signUp') ;
+    console.log(location.pathname)
     return (
         <div>
-            <NavBar></NavBar>
+  
+            {noHeaderfooter || <NavBar></NavBar>}
             <Outlet></Outlet>
-            <Footer></Footer>
+            {noHeaderfooter || <Footer></Footer>}
         </div>
     );
 };
