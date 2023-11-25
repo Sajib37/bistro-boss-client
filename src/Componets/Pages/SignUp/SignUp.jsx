@@ -19,7 +19,8 @@ const SignUp = () => {
     const handleGoogleLogin = () => {
         googleLogin()
             .then(result => {
-            toast.success('Login Successfully !')
+                toast.success('Login Successfully !')
+                navigate('/')
             })
             .catch(error => {
             toast.error('Login Failed.!')

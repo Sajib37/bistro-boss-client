@@ -3,7 +3,7 @@ import bgImage from "../../../assets/reservation/wood-grain-pattern-gray1x.png"
 import image1 from '../../../assets/others/authentication2.png'
 import { BsGoogle } from "react-icons/bs";
 import { Button, Label, TextInput } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -12,6 +12,10 @@ import { useAuth } from "../../AuthProvider/AuthProvider";
 
 
 const SignIn = () => {
+
+
+    const location = useLocation();
+    const navigate= useNavigate()
 
     const [disabled, setDisabled] = useState(true)
     const captchaRef = useRef(null)
@@ -45,8 +49,10 @@ const SignIn = () => {
         const password = form.password.value;
         
         emailLogin(email, password)
-            .then(result => {
-            toast.success('Login SuccessFully !')
+            .then(async result => {
+                toast.success('Login SuccessFully !')
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                navigate(location?.state ? location.state : '/');
             })
             .catch(error =>{
             toast.error('Login Failed !!')
@@ -55,8 +61,10 @@ const SignIn = () => {
 
     const handleGoogleLogin = () => {
         googleLogin()
-            .then(result => {
-            toast.success('Login Successfully !')
+            .then(async result => {
+                toast.success('Login Successfully !')
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                navigate(location?.state ? location.state : '/');
             })
             .catch(error => {
             toast.error('Login Failed !')
@@ -69,9 +77,8 @@ const SignIn = () => {
             .then(result => {
             toast.success('Check your email for new password')
             })
-            .then(error => {
-                // toast.error('pasweord reset Failed !')
-                console.log(error)
+            .catch(error => {
+                toast.error('pasweord reset Failed !')
         })
     }
 
