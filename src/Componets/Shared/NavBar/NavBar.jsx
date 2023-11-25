@@ -64,7 +64,7 @@ const NavBar = () => {
                             Our Menu
                         </NavLink>
                         <NavLink to="/shop" className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "underline underline-offset-4 text-red-600 mb-2" : "mb-2"}>
-                            Our Shop
+                            Order Now
                     </NavLink>
                     {
                         user ? 

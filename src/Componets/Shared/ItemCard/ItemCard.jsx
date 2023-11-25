@@ -28,7 +28,8 @@ const ItemCard = ({ item }) => {
                 itemID: _id,
                 name,
                 image,
-                recipe
+                recipe,
+                price
             }
             axiosSecure.post('/post/cart', cart)
                 .then(result => {

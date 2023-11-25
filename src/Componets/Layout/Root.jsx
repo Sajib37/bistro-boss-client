@@ -10,6 +10,7 @@ const Root = () => {
     }, [pathname])
 
     const location = useLocation()
+    
     const noHeaderfooter = location.pathname.includes('signIn') || location.pathname.includes('signUp') ;
 
     return (
