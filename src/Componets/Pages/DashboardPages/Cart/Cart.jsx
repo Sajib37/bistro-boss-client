@@ -14,12 +14,6 @@ const Cart = () => {
     const totalPrice = cart.reduce((total, item) => total + item.price, 0)
     
     const handleCartDelet = (item) => {
-        axiosSecure.delete(`/cart/${item._id}`)
-            .then(res => {
-                // console.log(res.data.deletedCount)
-
-            })
-            .catch(err => console.log(err))
 
         Swal.fire({
             title: "Are you sure?",
@@ -33,8 +27,8 @@ const Cart = () => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`/cart/${item._id}`)
                     .then(res => {
-                        console.log(res)
-                        if (res.data.deletedCount == 0) {
+                        console.log(res.data.deletedCount)
+                        if (res.data.deletedCount> 0) {
                             refetch();
                             Swal.fire({
                                 title: "Deleted!",
@@ -42,6 +36,7 @@ const Cart = () => {
                                 icon: "success"
                                   });
                         }
+                        
                     })
                     .catch(err => console.log(err))
             }

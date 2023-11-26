@@ -8,30 +8,23 @@ import { Link, useNavigate } from "react-router-dom";
 
 import toast, { Toaster } from "react-hot-toast";
 import { useAuth } from "../../AuthProvider/AuthProvider";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import SocilLogin from "../../Shared/SocilLogin/SocilLogin";
 
 
 const SignUp = () => {
 
-    const { googleLogin, createUser } = useAuth();
+    const { googleLogin, createUser, profileUpdate } = useAuth();
+    const axiosPublic = useAxiosPublic();
 
     const navigate = useNavigate();
 
-    const handleGoogleLogin = () => {
-        googleLogin()
-            .then(result => {
-                toast.success('Login Successfully !')
-                navigate('/')
-            })
-            .catch(error => {
-            toast.error('Login Failed.!')
-        })
-    }
-    
     const handleRegisterForm = (event) => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const name = form.name.value;
+        const photo = form.photo.value;
         const password = form.password.value;
         const confirmPassword = form.confirmPassword.value;
 
@@ -55,11 +48,25 @@ const SignUp = () => {
             return;
         } else {
             createUser(email, password)
-                .then(async (result) => {
-                    toast.success("Account created successfully");
-                    form.reset();
-                    await new Promise((resolve) => setTimeout(resolve, 1000));
-                    navigate("/signIn");
+                .then((result) => {
+                    profileUpdate(name, photo)
+                        .then(result => {
+                            const newUser = { name, email, photo ,password , role:'user'}
+                            // todo
+                            axiosPublic.post('/post/user', newUser)
+                                .then( async res => {
+                                    toast.success("Account created successfully");
+                                    form.reset();
+                                    await new Promise((resolve) => setTimeout(resolve, 1000));
+                                    navigate("/signIn");
+                                })
+                            .catch(error=>console.log(error))
+                            
+                        })
+                        .catch(error => {
+                        console.log(error)
+                    })
+                    
                 })
                 .catch((error) => {
                     if (
@@ -75,13 +82,13 @@ const SignUp = () => {
     }
 
     return (
-        <section className=" min-h-screen flex items-center py-12 md:px-10 px-2 lg:px-0" style={{backgroundImage: `url(${bgImage})` ,backgroundSize:'cover'}}>
+        <section className=" min-h-screen flex items-center py-12 md:px-10 px-4 lg:px-0" style={{backgroundImage: `url(${bgImage})` ,backgroundSize:'cover'}}>
         <Helmet>
             <title>Bistro Boss || Sign Out </title>
         </Helmet>
         <Toaster/>
-        <section className="w-full max-w-screen-xl border-2 px-2 md:px-4 mx-auto py-12 flex flex-row-reverse gap-2" style={{backgroundImage: `url(${bgImage})` , backgroundSize:'cover' ,boxShadow:'2px 2px 5px 5px #BBBCBD'}}>
-            <img className="w-1/2 hidden lg:block" src={image1} alt="" />
+        <section className="w-full max-w-screen-xl border-2 px-1 md:px-4 mx-auto py-12 flex items-center flex-row-reverse gap-2" style={{backgroundImage: `url(${bgImage})` , backgroundSize:'cover' ,boxShadow:'2px 2px 5px 5px #BBBCBD'}}>
+            <img className="w-1/2 h-fit hidden lg:block" src={image1} alt="" />
 
             <section className="w-full lg:w-1/2  mx-auto px-2 md:px-4  md:w-2/3 lg:max-w-lg rounded-lg py-10 md:py-12">
                 <h1 className="text-3xl md:text-4xl mb-4 text-center font-semibold">
@@ -95,6 +102,12 @@ const SignUp = () => {
                             <Label htmlFor="input-gray" color="gray" value="Name:" />
                         </div>
                         <TextInput  name='name' id="input-gray" placeholder="Enter your name" type='text' required color="gray"/>
+                    </div>   
+                    <div className="mb-3">
+                        <div className="mb-1 block">
+                            <Label htmlFor="input-gray" color="gray" value="Image url:" />
+                        </div>
+                        <TextInput  name='photo' id="input-gray" placeholder="Enter image url" type='text' required color="gray"/>
                     </div>   
                     <div className="mb-3">
                         <div className="mb-1 block">
@@ -118,12 +131,9 @@ const SignUp = () => {
                 </form>
 
                 <p className="font-ubuntu font-medium mt-4">Already have an account? Please, <Link className="text-[#D1A054] " to='/signIn'>Login</Link></p>
-                    <p className="text-center mt-2 font-semibold">Or sign up with</p>
-                    <div className="flex justify-center gap-4 mt-2 text-2xl md:text-3xl">
-                        <button onClick={handleGoogleLogin}><BsGoogle></BsGoogle></button>
-                        <button><FaFacebook /></button>
-                        <button><FaGithub /></button>
-                    </div>
+                    
+                <p className="text-center mt-2 font-semibold">Or sign up with</p>
+                <SocilLogin></SocilLogin>
                     
             </section>
         </section>

@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import { RiMenu2Fill } from "react-icons/ri";
-import { FaHome, FaBook, FaShoppingBag } from "react-icons/fa";
+import { FaHome, FaBook, FaShoppingBag,FaUsers } from "react-icons/fa";
 import { CgShoppingCart } from "react-icons/cg";
 import { NavLink } from "react-router-dom";
 import { MdMenu, MdEmail ,MdRateReview } from "react-icons/md";
 import { GrMoney } from "react-icons/gr";
 import { FaCartPlus } from "react-icons/fa6";
+import { ImSpoonKnife } from "react-icons/im";
+import { CgMenuGridO } from "react-icons/cg";
 
 const Sidebar = () => {
     const [open, setOpen] = useState(window.innerWidth >= 1024);
+
+    const isAdmin = true;
 
     const handleOpen = () => {
         if (window.innerWidth < 1024) {
@@ -50,48 +54,92 @@ const Sidebar = () => {
                 </div>
 
                 <section className="flex flex-col gap-4">
-                    <NavLink to='userHome' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
-                        <div className="flex gap-2 w-56 mx-auto">
-                            <span className="text-2xl"><FaHome /></span>
-                            <h1 className="text-base  uppercase">User Home</h1>
-                        </div>
-                    </NavLink>
+                    {
+                        isAdmin ? 
+                        <>
+                                <NavLink to='adminHome' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
+                                    <div className="flex gap-2 w-56 mx-auto">
+                                        <span className="text-2xl"><FaHome /></span>
+                                        <h1 className="text-base  uppercase">Admin Home</h1>
+                                    </div>
+                                </NavLink>
 
-                    <NavLink to='reservation' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
-                        <div className="flex gap-2 w-56 mx-auto">
-                            <span className="text-2xl"><CgShoppingCart /></span>
-                            <h1 className="text-base  uppercase">reservation</h1>
-                        </div>
-                    </NavLink>
+                                <NavLink to='addItems' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
+                                    <div className="flex gap-2 w-56 mx-auto">
+                                        <span className="text-2xl"><ImSpoonKnife /></span>
+                                        <h1 className="text-base  uppercase">Add items</h1>
+                                    </div>
+                                </NavLink>
 
-                    <NavLink to='payment' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
-                        <div className="flex gap-2 w-56 mx-auto">
-                            <span className="text-2xl"><GrMoney /></span>
-                            <h1 className="text-base  uppercase">payment history</h1>
-                        </div>
-                    </NavLink>
+                                <NavLink to='manageItems' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
+                                    <div className="flex gap-2 w-56 mx-auto">
+                                        <span className="text-2xl"><CgMenuGridO /></span>
+                                        <h1 className="text-base  uppercase">Manage items</h1>
+                                    </div>
+                                </NavLink>
 
-                    <NavLink to='cart' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
-                        <div className="flex gap-2 w-56 mx-auto">
-                            <span className="text-2xl"><FaCartPlus /></span>
-                            <h1 className="text-base  uppercase">My carts</h1>
-                        </div>
-                    </NavLink>
+                                <NavLink to='manageBookings' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
+                                    <div className="flex gap-2 w-56 mx-auto">
+                                        <span className="text-2xl"><FaBook></FaBook></span>
+                                        <h1 className="text-base  uppercase">Manage Bookings</h1>
+                                    </div>
+                                </NavLink>
 
-                    <NavLink to='review' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
-                        <div className="flex gap-2 w-56 mx-auto">
-                            <span className="text-2xl"><MdRateReview /></span>
-                            <h1 className="text-base  uppercase">add review</h1>
-                        </div>
-                    </NavLink>
+                                <NavLink to='users' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
+                                    <div className="flex gap-2 w-56 mx-auto">
+                                        <span className="text-2xl"><FaUsers /></span>
+                                        <h1 className="text-base  uppercase">All Users</h1>
+                                    </div>
+                                </NavLink>
 
-                    <NavLink to='booking' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
-                        <div className="flex gap-2 w-56 mx-auto">
-                            <span className="text-2xl"><FaBook/></span>
-                            <h1 className="text-base  uppercase">My booking</h1>
-                        </div>
-                    </NavLink>
+                            </>
+                            :
+                            <>
+                                <NavLink to='userHome' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
+                                    <div className="flex gap-2 w-56 mx-auto">
+                                        <span className="text-2xl"><FaHome /></span>
+                                        <h1 className="text-base  uppercase">User Home</h1>
+                                    </div>
+                                </NavLink>
 
+                                <NavLink to='reservation' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
+                                    <div className="flex gap-2 w-56 mx-auto">
+                                        <span className="text-2xl"><CgShoppingCart /></span>
+                                        <h1 className="text-base  uppercase">reservation</h1>
+                                    </div>
+                                </NavLink>
+
+                                <NavLink to='payment' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
+                                    <div className="flex gap-2 w-56 mx-auto">
+                                        <span className="text-2xl"><GrMoney /></span>
+                                        <h1 className="text-base  uppercase">payment history</h1>
+                                    </div>
+                                </NavLink>
+
+                                <NavLink to='cart' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
+                                    <div className="flex gap-2 w-56 mx-auto">
+                                        <span className="text-2xl"><FaCartPlus /></span>
+                                        <h1 className="text-base  uppercase">My carts</h1>
+                                    </div>
+                                </NavLink>
+
+                                <NavLink to='review' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
+                                    <div className="flex gap-2 w-56 mx-auto">
+                                        <span className="text-2xl"><MdRateReview /></span>
+                                        <h1 className="text-base  uppercase">add review</h1>
+                                    </div>
+                                </NavLink>
+
+                                <NavLink to='bookings' className={({ isActive, isPending }) =>isPending ? "pending" : isActive ? "text-white" : "mb-2"}>
+                                    <div className="flex gap-2 w-56 mx-auto">
+                                        <span className="text-2xl"><FaBook/></span>
+                                        <h1 className="text-base  uppercase">My booking</h1>
+                                    </div>
+                                </NavLink>
+
+                            </>
+                    }
+                    
                 </section>
 
                 <hr className="my-6 text-xl" />

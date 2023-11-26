@@ -10,6 +10,7 @@ import SignUp from "../../Pages/SignUp/SignUp";
 import PrivateRouter from "../PrivateRouter/PrivateRouter";
 import Dashboard from "../../Layout/Dashboard";
 import Cart from "../../Pages/DashboardPages/Cart/Cart";
+import AllUser from "../../Pages/DashboardPages/AllUser/AllUser";
 
 const Router = createBrowserRouter([
     {
@@ -44,12 +45,20 @@ const Router = createBrowserRouter([
         ]
     },
     {
-        path: "/dashboard",
+        path: "dashboard",
         element: <Dashboard></Dashboard>,
         children: [
+        
+            // User api
             {
                 path: "cart",
                 element: <Cart></Cart>
+            },
+
+            // Admin Apis
+            {
+                path: "users",
+                element:<AllUser></AllUser>
             }
         ]
     }

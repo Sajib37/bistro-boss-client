@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaFacebook ,FaGithub } from "react-icons/fa";
 import { useAuth } from "../../AuthProvider/AuthProvider";
+import SocilLogin from "../../Shared/SocilLogin/SocilLogin";
 
 
 const SignIn = () => {
@@ -51,6 +52,7 @@ const SignIn = () => {
         emailLogin(email, password)
             .then(async result => {
                 toast.success('Login SuccessFully !')
+                form.reset();
                 await new Promise((resolve) => setTimeout(resolve, 1000));
                 navigate(location?.state ? location.state : '/');
             })
@@ -83,13 +85,13 @@ const SignIn = () => {
     }
 
     return (
-        <section className=" min-h-screen flex items-center py-12 md:px-10 px-2 lg:px-0" style={{backgroundImage: `url(${bgImage})` ,backgroundSize:'cover'}}>
+        <section className=" min-h-screen flex items-center py-12 md:px-10 px-4 lg:px-0" style={{backgroundImage: `url(${bgImage})` ,backgroundSize:'cover'}}>
             <Helmet>
                 <title>Bistro Boss || Sign In </title>
             </Helmet>
             <Toaster/>
-            <section className="w-full max-w-screen-xl border-2 px-2 md:px-4 mx-auto md:py-4 py-6  flex gap-2" style={{backgroundImage: `url(${bgImage})` , backgroundSize:'cover' ,boxShadow:'2px 2px 5px 5px #BBBCBD'}}>
-                <img className="w-1/2 hidden lg:block" src={image1} alt="" />
+            <section className="w-full max-w-screen-xl border-2 px-2 md:px-4 mx-auto md:py-4 py-6  flex items-center gap-2" style={{backgroundImage: `url(${bgImage})` , backgroundSize:'cover' ,boxShadow:'2px 2px 5px 5px #BBBCBD'}}>
+                <img className="w-1/2 h-fit hidden lg:block" src={image1} alt="" />
 
                 <section className="w-full lg:w-1/2  mx-auto md:px-4  md:w-2/3 lg:max-w-lg rounded-lg py-10 md:py-12">
                     <h1 className="text-3xl md:text-4xl mb-4 text-center font-semibold">
@@ -124,11 +126,7 @@ const SignIn = () => {
                     <p className="font-ubuntu font-medium mt-4">Don't have an account? Please, <Link className="text-[#D1A054]" to='/signUp'>Register</Link></p>
                     
                     <p className="text-center mt-2 font-semibold">Or sign up with</p>
-                    <div className="flex justify-center gap-4 mt-2 text-2xl md:text-3xl">
-                        <button onClick={handleGoogleLogin}><BsGoogle></BsGoogle></button>
-                        <FaFacebook />
-                        <FaGithub />
-                    </div>
+                    <SocilLogin></SocilLogin>
                 </section>
             </section>
             
