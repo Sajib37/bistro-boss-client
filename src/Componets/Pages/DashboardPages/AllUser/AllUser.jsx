@@ -12,11 +12,7 @@ const AllUser = () => {
     const { refetch, data: users = [] } = useQuery({
         queryKey: ["users"],
         queryFn: async () => {
-            const result = await axiosSecure.get(`/get/users`, {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('access-token')}`
-                }
-            });
+            const result = await axiosSecure.get(`/get/users`);
             return result.data;
         },
     });

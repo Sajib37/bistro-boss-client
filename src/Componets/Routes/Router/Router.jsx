@@ -7,10 +7,15 @@ import OurMenu from "../../Pages/OurMenu/OurMenu";
 import OurShop from "../../Pages/OurShop/OurShop";
 import SignIn from "../../Pages/SignIn/SignIn";
 import SignUp from "../../Pages/SignUp/SignUp";
-import PrivateRouter from "../PrivateRouter/PrivateRouter";
+
 import Dashboard from "../../Layout/Dashboard";
 import Cart from "../../Pages/DashboardPages/Cart/Cart";
 import AllUser from "../../Pages/DashboardPages/AllUser/AllUser";
+import PrivateRouter from "../PrivateRouter/PrivateRouter";
+import AdminRoute from "../AdminRoute/AdminRoute";
+import AddItems from "../../Pages/DashboardPages/AddItems/AddItems";
+import ManageItems from "../../Pages/DashboardPages/ManageItems/ManageItems";
+
 
 const Router = createBrowserRouter([
     {
@@ -52,13 +57,22 @@ const Router = createBrowserRouter([
             // User api
             {
                 path: "cart",
-                element: <Cart></Cart>
+                element:<PrivateRouter><Cart></Cart></PrivateRouter>
             },
+
 
             // Admin Apis
             {
                 path: "users",
-                element:<AllUser></AllUser>
+                element:<AdminRoute><AllUser></AllUser></AdminRoute>
+            },
+            {
+                path: "addItems",
+                element:<AdminRoute><AddItems></AddItems></AdminRoute>
+            },
+            {
+                path: "manageItems",
+                element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
             }
         ]
     }

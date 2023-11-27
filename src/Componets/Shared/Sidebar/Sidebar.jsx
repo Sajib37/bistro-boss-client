@@ -8,11 +8,16 @@ import { GrMoney } from "react-icons/gr";
 import { FaCartPlus } from "react-icons/fa6";
 import { ImSpoonKnife } from "react-icons/im";
 import { CgMenuGridO } from "react-icons/cg";
+import useAdmin from "../../../hooks/useAdmin";
+import { ColorRing } from "react-loader-spinner";
 
 const Sidebar = () => {
     const [open, setOpen] = useState(window.innerWidth >= 1024);
 
-    const isAdmin = true;
+    // TODO : get admin from databse
+    const [isAdmin , loading] = useAdmin()
+    
+    console.log(isAdmin)
 
     const handleOpen = () => {
         if (window.innerWidth < 1024) {
@@ -32,6 +37,18 @@ const Sidebar = () => {
         };
     }, []);
 
+    if (loading) {
+        return <ColorRing
+        visible={true}
+        height="80"
+        width="80"
+        ariaLabel="blocks-loading"
+        wrapperStyle={{}}
+        wrapperClass="blocks-wrapper"
+        colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+      />
+    }
+
     return (
         <section className="">
             <button onClick={handleOpen} className="text-3xl text-[#D1A054] fixed top-2 left-2">
@@ -44,7 +61,7 @@ const Sidebar = () => {
 
             <aside
                 onClick={handleOpen}
-                className={`w-72 fixed top-0 left-0  bg-[#D1A054] border-r-4  border-[#7e561b] pt-4 h-screen transition-transform duration-700 ease-in-out ${
+                className={`w-72 fixed top-0 z-20 left-0  bg-[#D1A054] border-r-4  border-[#7e561b] pt-4 h-screen transition-transform duration-700 ease-in-out ${
                     open ? "translate-x-0" : "-translate-x-full"
                 }`}
             >

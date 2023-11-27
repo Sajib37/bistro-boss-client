@@ -28,7 +28,6 @@ const NavBar = () => {
         }
     }, [user])
     
-    console.log(photo)
 
     const handleLogOut = () => {
         logOut()
